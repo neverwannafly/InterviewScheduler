@@ -12,6 +12,7 @@ module InterviewScheduler
     config.load_defaults 6.0
     config.time_zone = 'Kolkata'
     config.active_job.queue_adapter = :sidekiq
+    config.api_only = true
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
