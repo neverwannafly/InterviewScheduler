@@ -1,7 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logoutUser } from '../actions/auth';
 
-const Navbar = ({userData}) => {
+const Navbar = ({userData, destroySession}) => {
+  const handleLogout = event => {
+    event.preventDefault();
+    const payload = {user_id: userData.userId, token: userData.token}
+    console.log(payload);
+    destroySession(payload);
+  }
   return (
     <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
       <strong>
@@ -17,11 +25,17 @@ const Navbar = ({userData}) => {
           </a>
           <Link className="nav-item nav-link" to={"/user/" + userData.userId}> My Profile </Link>
           <Link className="nav-item nav-link" to={"/" + userData.userId}> My Interviews </Link>
-          <Link className="nav-item nav-link" to="/landing" id="user-logout"> Logout </Link>
+          <a className="nav-item nav-link" href="/#" id="user-logout" onClick={handleLogout}> Logout </a>
         </div>
       </div>
     </nav>
   )
 }
 
-export default Navbar;
+const mapDispatchToState = dispatch => ({
+  destroySession: payload => {
+    dispatch(logoutUser(payload));
+  }
+});
+
+export default connect(null, mapDispatchToState)(Navbar);
