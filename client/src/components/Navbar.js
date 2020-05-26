@@ -18,9 +18,9 @@ const Navbar = ({userData, destroySession}) => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav ml-auto">
-          <a className="nav-item nav-link" data-toggle="modal" data-target="#createModal" href="/#">
+          <Link className="nav-item nav-link" to={"/create"}>
             Create Interview
-          </a>
+          </Link>
           <Link className="nav-item nav-link" to={"/user/" + userData.userId}> My Profile </Link>
           <Link className="nav-item nav-link" to={"/" + userData.userId}> My Interviews </Link>
           <a className="nav-item nav-link" href="/#" id="user-logout" onClick={handleLogout}> Logout </a>
