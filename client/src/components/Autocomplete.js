@@ -13,15 +13,17 @@ const Autocomplete = ({userData, id, label, defaultValue, handleMembersChange}) 
   return (
     <div className="form-group">
       <label htmlFor={`${id}_taglist`}>{label}</label>
+      <div className="form-control">
       <Multiselect
         data={usernames}
-        className="form-control"
+        className="form-control wrap"
         id={id}
         onChange={handleMembersChange}
         onSearch={handleSearch}
         textField='name'
         defaultValue={defaultValue}
       />
+      </div>
     </div>
   )
 }
