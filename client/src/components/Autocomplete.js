@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Multiselect } from 'react-widgets';
 import fetchUsers from '../utils/fetchUsers';
 
-const Autocomplete = ({userData, id, label, defaultValue, handleMembersChange}) => {
+const Autocomplete = ({userData, label, defaultValue, handleMembersChange}) => {
   let [usernames, setUsernames] = useState([]);
   useEffect(() => { 
     (async () => setUsernames(await fetchUsers(userData, '')))();
@@ -12,18 +12,14 @@ const Autocomplete = ({userData, id, label, defaultValue, handleMembersChange}) 
   }
   return (
     <div className="form-group">
-      <label htmlFor={`${id}_taglist`}>{label}</label>
-      <div className="form-control">
+      <label>{label}</label>
       <Multiselect
         data={usernames}
-        className="form-control wrap"
-        id={id}
         onChange={handleMembersChange}
         onSearch={handleSearch}
         textField='name'
         defaultValue={defaultValue}
       />
-      </div>
     </div>
   )
 }
