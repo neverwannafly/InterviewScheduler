@@ -8,8 +8,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './index.css';
 
 // Import Bootstrap
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import { store, persistor } from './store';
 
 ReactDOM.render(
