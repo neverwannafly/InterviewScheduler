@@ -6,9 +6,7 @@ import { logoutUser } from '../actions/auth';
 const Navbar = ({userData, destroySession}) => {
   const handleLogout = event => {
     event.preventDefault();
-    const payload = {user_id: userData.userId, token: userData.token}
-    console.log(payload);
-    destroySession(payload);
+    destroySession(userData);
   }
   return (
     <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
