@@ -8,6 +8,7 @@ import history from './history';
 import Landing from './pages/Landing';
 import CreateInterview from './pages/CreateInterview';
 import UserProfile from './pages/UserProfile';
+import UserInterview from './pages/UserInterview';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route exact path='/create' component={CreateInterview} />
         <Route exact path='/landing' component={Landing} />
         <Route exact path='/user/:id' component={UserProfile} />
+        <Route exact path='/interviews/:id' component={UserInterview} />
         <Route exact path='/notfound' component={Error404} />
         <Redirect to='/notfound' />
       </Switch>
