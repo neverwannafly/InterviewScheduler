@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import history from './history';
 import Landing from './pages/Landing';
+import CreateInterview from './pages/CreateInterview';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path='/' component={Interviews} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
+        <Route exact path='/create' component={CreateInterview} />
         <Route exact path='/landing' component={Landing} />
         <Route exact path='/notfound' component={Error404} />
         <Redirect to='/notfound' />
