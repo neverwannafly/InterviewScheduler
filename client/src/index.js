@@ -10,6 +10,8 @@ import './index.css';
 // Import Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import 'react-widgets/dist/css/react-widgets.css';
+
 import { store, persistor } from './store';
 
 ReactDOM.render(
