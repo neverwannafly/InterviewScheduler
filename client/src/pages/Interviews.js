@@ -3,12 +3,12 @@ import Navbar from '../components/Navbar';
 import Calendar from '../components/Calendar';
 import { connect } from 'react-redux';
 
-const Interviews = ({user, loading, error}) => {
+const Interviews = ({user, loading, errors}) => {
   return (
     <div className="page">
-      <Navbar userData={{username: user.username, userId: user.id, token: user.token}} />
+      <Navbar userData={user} />
       <div className="wrapper">
-        <Calendar/>
+        <Calendar userData={user}/>
       </div>
     </div>
   )
