@@ -22,7 +22,7 @@ const Navbar = ({userData, destroySession}) => {
             Create Interview
           </Link>
           <Link className="nav-item nav-link" to={"/user/" + userData.id}> My Profile </Link>
-          <Link className="nav-item nav-link" to={"/" + userData.id}> My Interviews </Link>
+          <Link className="nav-item nav-link" to={"/interviews/" + userData.id}> My Interviews </Link>
           <a className="nav-item nav-link" href="/#" id="user-logout" onClick={handleLogout}> Logout </a>
         </div>
       </div>
