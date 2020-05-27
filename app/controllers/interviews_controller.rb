@@ -16,7 +16,7 @@ class InterviewsController < ApplicationController
   def get
     if can_view
       interview = Interview.find(params[:id])
-      members = User.where(:id => UserInterview.where(:interview_id => interview.id).pluck(:user_id)).pluck(:username ).join ","
+      members = User.select(:id, :username).where(:id => UserInterview.where(:interview_id => interview.id).pluck(:user_id))
       render json: {
         :id => interview.id,
         :title => interview.title,
