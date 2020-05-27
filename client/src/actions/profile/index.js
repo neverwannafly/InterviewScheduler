@@ -1,6 +1,8 @@
 import attachHeaders from "../../utils/attachHeaders";
 import { getProfile, profileFailure, profileSuccess } from "./profile";
 import { SERVER_PREFIX, NETWORK_ERROR } from "../../config";
+import { uploadResume, uploadFailure, uploadSuccess } from "./upload";
+import sendFile from "../../utils/sendFile";
 
 export const retrieveProfile = (user) => {
   return async dispatch => {
@@ -19,6 +21,24 @@ export const retrieveProfile = (user) => {
       }
     } catch {
       dispatch(profileFailure(NETWORK_ERROR));
+    }
+  }
+}
+
+export const uploadUserResume = (user, files) => {
+  return async dispatch => {
+    dispatch(uploadResume());
+    try {
+      sendFile(user, files, (data) => {
+        if (data.success) {
+          dispatch(uploadSuccess());
+          dispatch(retrieveProfile(user));
+        } else {
+          dispatch(uploadFailure(data.error));
+        }
+      });
+    } catch {
+      dispatch(uploadFailure(NETWORK_ERROR));
     }
   }
 }
