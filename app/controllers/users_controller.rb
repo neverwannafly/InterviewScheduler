@@ -61,7 +61,7 @@ class UsersController < ApplicationController
 
   def upload
     if can_upload
-      @user = User.find(params[:owner_id])
+      @user = User.find(params[:id])
       @user.resume.attach(params[:resume])
       @user.save
       render json: {
