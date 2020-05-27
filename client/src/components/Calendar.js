@@ -27,13 +27,12 @@ const Calendar = ({userData}) => {
             'Content-Type': 'application/json',
           }
         });
-
         const data = await response.json();
         console.log(data);
       }
     });
     calendar.render();
-  });
+  }, [userData]);
   return (
     <div id="calendar-root">
       
