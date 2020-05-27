@@ -5,8 +5,7 @@ const fetchUsers = async (userData, query) => {
   const url = `${SERVER_PREFIX}/api/users/fetch`;
   const response = await fetch(attachHeaders(url, userData, {query}));
   const data = await response.json();
-  console.log(data.map(user => ({name: user.username, id: parseInt(user.id)})));
-  return data.map(user => ({name: user.username, id: parseInt(user.id)}));
+  return data.map(user => ({username: user.username, id: parseInt(user.id)}));
 }
 
 export default fetchUsers;
