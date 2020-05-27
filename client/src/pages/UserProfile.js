@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Navbar from '../components/Navbar';
 import ResumeUpload from '../components/ResumeUpload';
-import Resume from '../components/Resume';
+import Profile from '../components/Profile';
+import { retrieveProfile, uploadUserResume } from '../actions/profile';
+import sendFile from '../utils/sendFile';
 
-const UserProfile = ({loading, user, errors}) => {
+const UserProfile = ({loading, user, success, profile, errors, retrieveProfileData, uploadResume}) => {
+  let [file, setFile] = useState(null);
+  const handleFileUpload = event => {
+    setFile(event.target.files);
+  }
+  const handleSubmit = event => {
+    event.preventDefault();
+    const files = {resume: file[0]}
+    uploadResume(user, files);
+  }
+  useEffect(() => {
+    retrieveProfileData(user);
+  }, [retrieveProfileData, user]);
+
   return (
     <div className="page">
       <Navbar
         userData={user}
       />
       <div className="container">
-        <Resume />
+        <Profile success={success} profile={profile} />
         <div className="center">
-          <ResumeUpload />
+          <ResumeUpload 
+            handleFileUpload={handleFileUpload}
+            handleSubmit={handleSubmit}
+          />
         </div>
       </div>
     </div>
@@ -21,9 +39,20 @@ const UserProfile = ({loading, user, errors}) => {
 }
 
 const mapStateToProps = state => ({
-  loading: state.auth.loading,
   user: state.auth.user,
-  errors: state.auth.errors,
+  profile: state.profile.profile,
+  success: state.profile.success,
+  loading: state.profile.loading,
+  errors: state.profile.errors,
 });
 
-export default connect(mapStateToProps)(UserProfile);
+const mapDispatchToProps = dispatch => ({
+  retrieveProfileData: (user) => {
+    dispatch(retrieveProfile(user));
+  },
+  uploadResume: (user, file) => {
+    dispatch(uploadUserResume(user, file));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
