@@ -15,7 +15,7 @@ const ViewInterview = ({interview}) => {
           </tr>
           <tr>
             <th scope="col">Members</th>
-            <td id="_members">{interview.members || ''}</td>
+            <td id="_members">{interview.members.map(member => member.username).join(', ') || ''}</td>
           </tr>
           <tr>
             <th scope="col">Start Time</th>
