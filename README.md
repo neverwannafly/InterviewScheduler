@@ -13,3 +13,4 @@
 * run sidekiq server: `bundle exec sidekiq -q default -q mailers`
 * run redis server:   `redis-server`
 * run rails server:   `rails server`
+* run react server:   `(cd client && yarn start)`
