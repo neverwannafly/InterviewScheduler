@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import InterviewForm from '../components/InterviewForm';
 import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
+import { createInterview } from '../actions/interview';
+import formatMembers from '../utils/formatMembers';
 
 const CreateInterview = ({loading, user, errors}) => {
 
@@ -22,7 +24,10 @@ const CreateInterview = ({loading, user, errors}) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(members, title, agenda, start, end, comments);
+    const payload = { interview: {
+      members: formatMembers(members), title, agenda, start, end, comments }
+    };
+    createInterview(payload, user);
   }
 
   return (
