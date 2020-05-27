@@ -5,7 +5,11 @@ import fetchUsers from '../utils/fetchUsers';
 const Autocomplete = ({userData, label, defaultValue, handleMembersChange}) => {
   let [usernames, setUsernames] = useState([]);
   useEffect(() => { 
-    (async () => setUsernames(await fetchUsers(userData, '')))();
+    let unmounted = false;
+    fetchUsers(userData, '').then(usernames => {
+      if (!unmounted) setUsernames(usernames);
+    })
+    return () => {unmounted = true};
   }, [userData]);
   const handleSearch = async query => {
     setUsernames(await fetchUsers(userData, query));
