@@ -65,10 +65,10 @@ export const logoutUser = (userData) => {
       });
       const data = await response.json();
       if (data.success) {
-        dispatch(logoutSuccess(data.success));
+        dispatch(logoutSuccess());
         history.push('/landing');
       } else {
-        dispatch(logoutFailure(data.success));
+        dispatch(logoutFailure(data.errors));
       }
     } catch {
       dispatch(logoutFailure(NETWORK_ERROR));
