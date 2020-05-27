@@ -10,7 +10,7 @@ const CreateInterview = ({loading, user, errors}) => {
 
   let [title, setTitle] = useState('');
   let [agenda, setAgenda] = useState('');
-  let [members, setMembers] = useState('');
+  let [members, setMembers] = useState([]);
   let [start, setStart] = useState('');
   let [end, setEnd] = useState('');
   let [comments, setComments] = useState('');
@@ -46,6 +46,7 @@ const CreateInterview = ({loading, user, errors}) => {
           handleEndChange={handleEndChange}
           handleCommentChange={handleCommentChange}
           handleSubmit={handleSubmit}
+          submitValue="Create"
         />
       </div>
     </div>
