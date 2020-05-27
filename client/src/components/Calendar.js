@@ -10,6 +10,7 @@ import { SERVER_PREFIX } from '../config';
 import attachHeaders from '../utils/attachHeaders';
 import ViewInterview from './ViewInterview';
 import {Modal} from 'react-bootstrap';
+import history from '../history';
 
 const Calendar = ({userData}) => {
   const [show, setShow] = useState(false);
@@ -26,6 +27,10 @@ const Calendar = ({userData}) => {
       console.log(data);
     });
     triggerReload(!reload);
+  }
+  const handleInterviewEdit = () => {
+    setShow(false);
+    history.push(`/interview/${interview.id}/edit`, {interview});
   }
 
   useEffect(() => {
@@ -66,7 +71,7 @@ const Calendar = ({userData}) => {
           <button className="btn btn-outline-primary btn-inline" onClick={handleModalClose}>
             Close
           </button>
-          <button className="btn btn-outline-success btn-inline" onClick={handleModalClose}>
+          <button className="btn btn-outline-success btn-inline" onClick={handleInterviewEdit}>
             Edit
           </button>
           <button className="btn btn-outline-danger btn-inline" onClick={handleInterviewDelete}>
