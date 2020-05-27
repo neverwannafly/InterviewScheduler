@@ -6,9 +6,7 @@ import { logoutUser } from '../actions/auth';
 const Navbar = ({userData, destroySession}) => {
   const handleLogout = event => {
     event.preventDefault();
-    const payload = {user_id: userData.userId, token: userData.token}
-    console.log(payload);
-    destroySession(payload);
+    destroySession(userData);
   }
   return (
     <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
@@ -20,11 +18,11 @@ const Navbar = ({userData, destroySession}) => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav ml-auto">
-          <a className="nav-item nav-link" data-toggle="modal" data-target="#createModal" href="/#">
+          <Link className="nav-item nav-link" to={"/create"}>
             Create Interview
-          </a>
-          <Link className="nav-item nav-link" to={"/user/" + userData.userId}> My Profile </Link>
-          <Link className="nav-item nav-link" to={"/" + userData.userId}> My Interviews </Link>
+          </Link>
+          <Link className="nav-item nav-link" to={"/user/" + userData.id}> My Profile </Link>
+          <Link className="nav-item nav-link" to={"/interviews/" + userData.id}> My Interviews </Link>
           <a className="nav-item nav-link" href="/#" id="user-logout" onClick={handleLogout}> Logout </a>
         </div>
       </div>

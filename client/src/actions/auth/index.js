@@ -3,6 +3,7 @@ import { SERVER_PREFIX, NETWORK_ERROR } from "../../config";
 import history from "../../history";
 import { attemptRegister, registerSuccess } from "./register";
 import { logoutSuccess, logoutFailure } from "./logout";
+import attachHeaders from "../../utils/attachHeaders";
 
 export const loginUser = (body) => {
   return async dispatch => {
@@ -52,23 +53,22 @@ export const registerUser = (body) => {
   }
 }
 
-export const logoutUser = (params) => {
-  console.log("hohoho");
+export const logoutUser = (userData) => {
   return async dispatch => {
     try {
-      const response = await fetch(`${SERVER_PREFIX}/logout?${new URLSearchParams(params)}`, {
+      const url = `${SERVER_PREFIX}/logout`;
+      const response = await fetch(attachHeaders(url, userData), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         }
       });
-      console.log(response);
       const data = await response.json();
       if (data.success) {
-        dispatch(logoutSuccess(data.success));
+        dispatch(logoutSuccess());
         history.push('/landing');
       } else {
-        dispatch(logoutFailure(data.success));
+        dispatch(logoutFailure(data.errors));
       }
     } catch {
       dispatch(logoutFailure(NETWORK_ERROR));
