@@ -1,7 +1,7 @@
 import React from 'react';
 import Autocomplete from './Autocomplete';
 
-const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleMembersChange, handleStartChange, handleEndChange, handleCommentChange, handleSubmit}) => {
+const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleMembersChange, handleStartChange, handleEndChange, handleCommentChange, handleSubmit, submitValue, defaults={}}) => {
   return (
     <div className="form-wrapper">
       <form id="edit_interview" acceptCharset="UTF-8" onSubmit={handleSubmit}>
@@ -12,6 +12,7 @@ const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleM
             type="text"
             id="edit_interview_title"
             onChange={handleTitleChange}
+            defaultValue={defaults.title || ''}
           />
         </div>
       
@@ -22,6 +23,7 @@ const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleM
             type="text" 
             id="edit_interview_agenda"
             onChange={handleAgendaChange}
+            defaultValue={defaults.agenda || ''}
           />
         </div>
       
@@ -29,7 +31,7 @@ const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleM
           label={'Members'} 
           userData={userData}
           handleMembersChange={handleMembersChange}
-          defaultValue={[]}
+          defaultValue={defaults.members || []}
         />
       
         <div className="form-group">
@@ -39,6 +41,7 @@ const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleM
             id="edit_dtp_beg" 
             type="datetime-local"
             onChange={handleStartChange}
+            defaultValue={defaults.start || ''}
           />
         </div>
       
@@ -49,6 +52,7 @@ const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleM
             id="edit_dtp_end" 
             type="datetime-local" 
             onChange={handleEndChange}
+            defaultValue={defaults.end || ''}
           />
         </div>
       
@@ -58,11 +62,12 @@ const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleM
             className="form-control"
             id="edit_interview_comments"
             onChange={handleCommentChange}
+            defaultValue={defaults.comments || ''}
           />
         </div>
       
         <div className="actions">
-          <input type="submit" value="Create" className="btn btn-danger btn-block"/>
+          <input type="submit" value={submitValue} className="btn btn-danger btn-block"/>
         </div>
       
       </form>
