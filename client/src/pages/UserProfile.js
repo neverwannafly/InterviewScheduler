@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar';
 import ResumeUpload from '../components/ResumeUpload';
 import Profile from '../components/Profile';
 import { retrieveProfile, uploadUserResume } from '../actions/profile';
-import sendFile from '../utils/sendFile';
 
 const UserProfile = ({loading, user, success, profile, errors, retrieveProfileData, uploadResume}) => {
   let [file, setFile] = useState(null);

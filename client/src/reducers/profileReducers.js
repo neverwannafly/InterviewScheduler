@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_SUCCESS, PROFILE_FAILURE, UPLOAD_RESUME, UPLOAD_SUCCESS, UPLOAD_FAILURE } from "../types/profile";
+import { GET_PROFILE, PROFILE_SUCCESS, PROFILE_FAILURE, UPLOAD_FAILURE } from "../types/profile";
 
 const initialState = {
   loading: false,

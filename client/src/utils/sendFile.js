@@ -1,4 +1,3 @@
-import history from "../history";
 import { SERVER_PREFIX } from "../config";
 import attachHeaders from "./attachHeaders";
 
