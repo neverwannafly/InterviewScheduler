@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def profile
     if can_view
-      user = User.find(params[:resume_owner])
+      user = User.find(params[:id])
       if user
         if user.resume.attached?
           render json: {
