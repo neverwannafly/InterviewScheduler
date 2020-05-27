@@ -123,7 +123,7 @@ class InterviewsController < ApplicationController
   def create
     if can_create
       @interview = Interview.new interview_params
-      members = params[:interview][:members].split(',')
+      members = params[:interview][:members]
       if !check_conflicts(members)
         @interview.user = current_user
         if @interview.save
