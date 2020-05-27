@@ -17,3 +17,19 @@ export const createInterview = async (body, user) => {
   }
   console.log(data);
 }
+
+export const updateInterview = async (body, user, interviewid) => {
+  const url = `${SERVER_PREFIX}/interviews/${interviewid}`;
+  const response = await fetch(attachHeaders(url, user), {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+  const data = await response.json();
+  if (data.success) {
+    history.push('/');
+  }
+  console.log(data);
+}

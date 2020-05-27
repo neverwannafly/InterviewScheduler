@@ -1,7 +1,7 @@
 import React from 'react';
 import Autocomplete from './Autocomplete';
 
-const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleMembersChange, handleStartChange, handleEndChange, handleCommentChange, handleSubmit, submitValue, defaults={}}) => {
+const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleMembersChange, handleStartChange, handleEndChange, handleCommentChange, handleSubmit, submitValue, disableMembers=false, defaults={}}) => {
   return (
     <div className="form-wrapper">
       <form id="edit_interview" acceptCharset="UTF-8" onSubmit={handleSubmit}>
@@ -32,6 +32,7 @@ const InterviewForm = ({userData, handleTitleChange, handleAgendaChange, handleM
           userData={userData}
           handleMembersChange={handleMembersChange}
           defaultValue={defaults.members || []}
+          disableMembers={disableMembers}
         />
       
         <div className="form-group">

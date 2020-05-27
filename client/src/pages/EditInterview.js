@@ -5,10 +5,12 @@ import InterviewForm from '../components/InterviewForm';
 import { useLocation } from 'react-router';
 import formatMembers from '../utils/formatMembers';
 import { connect } from 'react-redux';
+import { updateInterview } from '../actions/interview';
 
 const EditInterview = ({user, loading, errors}) => {
   const location = useLocation();
-  console.log(location);
+  const interviewid = location.state.interview.id;
+
   let [title, setTitle] = useState(location.state.interview.title);
   let [agenda, setAgenda] = useState(location.state.interview.agenda);
   let [members, setMembers] = useState(location.state.interview.members);
@@ -17,16 +19,6 @@ const EditInterview = ({user, loading, errors}) => {
   let [comments, setComments] = useState(location.state.interview.comments);
 
   const defaults = { title, agenda, members, start, end, comments };
-  let defaultMembers = [];
-  for (let member of defaults.members) {
-    defaultMembers.push({
-      username: member.username,
-      id: member.id,
-    });
-  }
-  
-  defaults.members = defaultMembers;
-  console.log(defaults);
 
   const handleTitleChange = event => setTitle(event.target.value);
   const handleAgendaChange = event => setAgenda(event.target.value);
@@ -40,7 +32,7 @@ const EditInterview = ({user, loading, errors}) => {
     const payload = { interview: {
       members: formatMembers(members), title, agenda, start, end, comments }
     };
-    console.log(payload);
+    updateInterview(payload, user, interviewid);
   }
   return (
     <div className="page">
@@ -60,6 +52,7 @@ const EditInterview = ({user, loading, errors}) => {
           handleSubmit={handleSubmit}
           defaults={defaults}
           submitValue="Reschedule"
+          disableMembers={true}
         />
       </div>
     </div>

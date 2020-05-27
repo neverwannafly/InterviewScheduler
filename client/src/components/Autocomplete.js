@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Multiselect } from 'react-widgets';
 import fetchUsers from '../utils/fetchUsers';
 
-const Autocomplete = ({userData, label, defaultValue, handleMembersChange}) => {
+const Autocomplete = ({userData, label, defaultValue, handleMembersChange, disableMembers}) => {
   let [usernames, setUsernames] = useState([]);
   useEffect(() => { 
     let didCancel = false;
     fetchUsers(userData, '').then(usernames => {
-      if (!didCancel) setUsernames(usernames);
+      if (!didCancel && !disableMembers) setUsernames(usernames);
     })
     return () => {didCancel = true};
-  }, [userData]);
+  }, [userData, disableMembers]);
   const handleSearch = async query => {
-    setUsernames(await fetchUsers(userData, query));
+    if (!disableMembers) setUsernames(await fetchUsers(userData, query));
   }
   return (
     <div className="form-group">
@@ -23,6 +23,7 @@ const Autocomplete = ({userData, label, defaultValue, handleMembersChange}) => {
         onSearch={handleSearch}
         textField='username'
         defaultValue={defaultValue}
+        disabled={disableMembers}
       />
     </div>
   )
