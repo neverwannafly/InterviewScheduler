@@ -21,7 +21,7 @@ const Autocomplete = ({userData, label, defaultValue, handleMembersChange}) => {
         data={usernames}
         onChange={handleMembersChange}
         onSearch={handleSearch}
-        textField='name'
+        textField='username'
         defaultValue={defaultValue}
       />
     </div>
