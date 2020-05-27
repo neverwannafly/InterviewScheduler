@@ -1,5 +1,6 @@
 import { SERVER_PREFIX } from "../../config"
 import attachHeaders from "../../utils/attachHeaders";
+import history from "../../history";
 
 export const createInterview = async (body, user) => {
   const url = `${SERVER_PREFIX}/interviews`;
@@ -10,6 +11,9 @@ export const createInterview = async (body, user) => {
       'Content-Type': 'application/json',
     }
   });
-  const data = response.json();
+  const data = await response.json();
+  if (data.success) {
+    history.push('/');
+  }
   console.log(data);
 }
