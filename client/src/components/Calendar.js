@@ -14,8 +14,19 @@ import {Modal} from 'react-bootstrap';
 const Calendar = ({userData}) => {
   const [show, setShow] = useState(false);
   const [interview, setInterview] = useState({});
+  const [reload, triggerReload] = useState(false);
 
   const handleModalClose = () => setShow(false);
+  const handleInterviewDelete = () => {
+    setShow(false);
+    const url = `${SERVER_PREFIX}/interviews/${interview.id}`;
+    fetch(attachHeaders(url, userData), {method: 'DELETE'}).then(response => {
+      return response.json();
+    }).then(data => {
+      console.log(data);
+    });
+    triggerReload(!reload);
+  }
 
   useEffect(() => {
     const calendarEl = document.getElementById('calendar-root');
@@ -36,16 +47,17 @@ const Calendar = ({userData}) => {
         });
         const data = await response.json();
         setInterview(data); setShow(true);
-        console.log(data);
       }
     });
     calendar.render();
-  }, [userData]);
+  }, [userData, reload]);
   return (
     <div className="component">
       <Modal show={show} onHide={handleModalClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>
+            Interview
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ViewInterview interview={interview} />
@@ -57,7 +69,7 @@ const Calendar = ({userData}) => {
           <button className="btn btn-outline-success btn-inline" onClick={handleModalClose}>
             Edit
           </button>
-          <button className="btn btn-outline-danger btn-inline" onClick={handleModalClose}>
+          <button className="btn btn-outline-danger btn-inline" onClick={handleInterviewDelete}>
             Delete
           </button>
         </Modal.Footer>
