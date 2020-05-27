@@ -6,10 +6,10 @@ export const attempLogout = () => {
   }
 }
 
-export const logoutSuccess = user => {
+export const logoutSuccess = () => {
   return {
     type: LOGOUT_SUCCESS,
-    payload: user,
+    payload: {},
   }
 }
 
