@@ -150,6 +150,10 @@ private
     start_time ||= @interview.start + 1.second
     end_time ||= @interview.end - 1.second
     current_interview_id = @interview.id || -1
+
+    # threshold are just a way to represent infinity
+    # I couldnt find a cleaner implementation of infinity in rails
+    # as everyone of them pretty much did the same thing.
     upper_threshold = Time.now + 1000.years
     lower_threshold = Time.now - 1000.years
 
