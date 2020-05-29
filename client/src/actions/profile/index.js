@@ -8,7 +8,8 @@ export const retrieveProfile = (user) => {
   return dispatch => {
     dispatch(getProfile());
     try {
-      const url = `${SERVER_PREFIX}/user/${user.id}`;
+      const userPath = window.location.pathname;
+      const url = `${SERVER_PREFIX}/${userPath}`;
       fetch(attachHeaders(url, user)).then(response => 
         response.json()
       ).then(data => {
