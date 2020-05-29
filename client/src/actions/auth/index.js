@@ -6,23 +6,25 @@ import { logoutSuccess, logoutFailure } from "./logout";
 import attachHeaders from "../../utils/attachHeaders";
 
 export const loginUser = (body) => {
-  return async dispatch => {
+  return dispatch => {
     dispatch(attemptLogin());
     try {
-      const response = await fetch(`${SERVER_PREFIX}/login`, {
+      fetch(`${SERVER_PREFIX}/login`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
           'Content-Type': 'application/json',
         }
+      }).then(response => 
+        response.json()
+      ).then(data => {
+        if (data.success) {
+          dispatch(loginSuccess(data.user));
+          history.push('/interviews');
+        } else {
+          dispatch(loginFailure(data.error));
+        }
       });
-      const data = await response.json();
-      if (data.success) {
-        dispatch(loginSuccess(data.user));
-        history.push('/interviews');
-      } else {
-        dispatch(loginFailure(data.error));
-      }
     } catch {
       dispatch(loginFailure(NETWORK_ERROR));
     }
@@ -30,23 +32,25 @@ export const loginUser = (body) => {
 }
 
 export const registerUser = (body) => {
-  return async dispatch => {
+  return dispatch => {
     dispatch(attemptRegister());
     try {
-      const response = await fetch(`${SERVER_PREFIX}/signup`, {
+      fetch(`${SERVER_PREFIX}/signup`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
           'Content-Type': 'application/json',
         }
+      }).then(response => 
+        response.json
+      ).then(data => {
+        if (data.success) {
+          dispatch(registerSuccess(data.user));
+          history.push('/interviews');
+        } else {
+          dispatch(loginFailure(data.error));
+        }
       });
-      const data = await response.json();
-      if (data.success) {
-        dispatch(registerSuccess(data.user));
-        history.push('/interviews');
-      } else {
-        dispatch(loginFailure(data.error));
-      }
     } catch {
       dispatch(loginFailure(NETWORK_ERROR));
     }
@@ -54,22 +58,24 @@ export const registerUser = (body) => {
 }
 
 export const logoutUser = (userData) => {
-  return async dispatch => {
+  return dispatch => {
     try {
       const url = `${SERVER_PREFIX}/logout`;
-      const response = await fetch(attachHeaders(url, userData), {
+      fetch(attachHeaders(url, userData), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         }
+      }).then(response => 
+        response.json()
+      ).then(data => {
+        if (data.success) {
+          dispatch(logoutSuccess());
+          history.push('/');
+        } else {
+          dispatch(logoutFailure(data.errors));
+        }
       });
-      const data = await response.json();
-      if (data.success) {
-        dispatch(logoutSuccess());
-        history.push('/');
-      } else {
-        dispatch(logoutFailure(data.errors));
-      }
     } catch {
       dispatch(logoutFailure(NETWORK_ERROR));
     }

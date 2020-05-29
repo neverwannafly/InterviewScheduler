@@ -11,8 +11,10 @@ const Autocomplete = ({userData, label, defaultValue, handleMembersChange, disab
     })
     return () => {didCancel = true};
   }, [userData, disableMembers]);
-  const handleSearch = async query => {
-    if (!disableMembers) setUsernames(await fetchUsers(userData, query));
+  const handleSearch = query => {
+    if (!disableMembers) {
+      fetchUsers(userData, query).then(usernames => setUsernames(usernames));
+    }
   }
   return (
     <div className="form-group">

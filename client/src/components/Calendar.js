@@ -21,9 +21,9 @@ const Calendar = ({userData}) => {
   const handleInterviewDelete = () => {
     setShow(false);
     const url = `${SERVER_PREFIX}/interviews/${interview.id}`;
-    fetch(attachHeaders(url, userData), {method: 'DELETE'}).then(response => {
-      return response.json();
-    }).then(data => {
+    fetch(attachHeaders(url, userData), {method: 'DELETE'}).then(response =>
+      response.json()
+    ).then(data => {
       console.log(data);
     });
     triggerReload(!reload);
@@ -41,17 +41,20 @@ const Calendar = ({userData}) => {
       events: {
         url: attachHeaders(baseUrl, userData),
       },
-      eventClick: async info => {
+      eventClick: info => {
         const interviewId = info.event.id;
         const baseUrl = `${SERVER_PREFIX}/api/interviews/get/${interviewId}`;
-        const response = await fetch(attachHeaders(baseUrl, userData), {
+        fetch(attachHeaders(baseUrl, userData), {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           }
+        }).then(response => 
+          response.json()
+        ).then(data => {
+          setInterview(data);
+          setShow(true);
         });
-        const data = await response.json();
-        setInterview(data); setShow(true);
       }
     });
     calendar.render();
