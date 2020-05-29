@@ -13,7 +13,7 @@ export const createInterview = async (body, user) => {
   });
   const data = await response.json();
   if (data.success) {
-    history.push('/');
+    history.push('/interviews');
   }
   console.log(data);
 }
@@ -29,7 +29,7 @@ export const updateInterview = async (body, user, interviewid) => {
   });
   const data = await response.json();
   if (data.success) {
-    history.push('/');
+    history.push('/interviews');
   }
   console.log(data);
 }

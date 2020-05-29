@@ -19,7 +19,7 @@ export const loginUser = (body) => {
       const data = await response.json();
       if (data.success) {
         dispatch(loginSuccess(data.user));
-        history.push('/');
+        history.push('/interviews');
       } else {
         dispatch(loginFailure(data.error));
       }
@@ -43,7 +43,7 @@ export const registerUser = (body) => {
       const data = await response.json();
       if (data.success) {
         dispatch(registerSuccess(data.user));
-        history.push('/');
+        history.push('/interviews');
       } else {
         dispatch(loginFailure(data.error));
       }
@@ -66,7 +66,7 @@ export const logoutUser = (userData) => {
       const data = await response.json();
       if (data.success) {
         dispatch(logoutSuccess());
-        history.push('/landing');
+        history.push('/');
       } else {
         dispatch(logoutFailure(data.errors));
       }
