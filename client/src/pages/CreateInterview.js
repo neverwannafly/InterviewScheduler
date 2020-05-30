@@ -5,8 +5,9 @@ import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
 import { createInterview } from '../actions/interview';
 import formatMembers from '../utils/formatMembers';
+import Notice from '../components/Notice';
 
-const CreateInterview = ({loading, user, errors}) => {
+const CreateInterview = ({loading, user, errors, scheduleInterview}) => {
 
   let [title, setTitle] = useState('');
   let [agenda, setAgenda] = useState('');
@@ -27,7 +28,7 @@ const CreateInterview = ({loading, user, errors}) => {
     const payload = { interview: {
       members: formatMembers(members), title, agenda, start, end, comments }
     };
-    createInterview(payload, user);
+    scheduleInterview(payload, user);
   }
 
   return (
@@ -35,6 +36,7 @@ const CreateInterview = ({loading, user, errors}) => {
       <Navbar userData={user} />
       <div className="wrapper header">
         <Header name={'Schedule Interview'}/>
+        <Notice />
       </div>
       <div className="wrapper">
         <InterviewForm
@@ -59,4 +61,10 @@ const mapStateToProps = state => ({
   errors: state.auth.errors,
 });
 
-export default connect(mapStateToProps)(CreateInterview);
+const mapDispatchToProps = dispatch => ({
+  scheduleInterview: (payload, user) => {
+    dispatch(createInterview(payload, user));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateInterview);

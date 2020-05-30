@@ -3,6 +3,8 @@ import { getProfile, profileFailure, profileSuccess } from "./profile";
 import { SERVER_PREFIX, NETWORK_ERROR } from "../../config";
 import { uploadResume, uploadFailure, uploadSuccess } from "./upload";
 import sendFile from "../../utils/sendFile";
+import { issueNotice } from "../notice/notice";
+import { BLUE_NOTICE, RED_NOTICE } from "../../types/notice";
 
 export const retrieveProfile = (user) => {
   return dispatch => {
@@ -34,12 +36,15 @@ export const uploadUserResume = (user, files) => {
       sendFile(user, files, (data) => {
         if (data.success) {
           dispatch(uploadSuccess());
+          dispatch(issueNotice('Resume uploaded successfully!', BLUE_NOTICE));
           dispatch(retrieveProfile(user));
         } else {
+          dispatch(issueNotice(data.error, RED_NOTICE));
           dispatch(uploadFailure(data.error));
         }
       });
     } catch {
+      dispatch(issueNotice(NETWORK_ERROR, RED_NOTICE));
       dispatch(uploadFailure(NETWORK_ERROR));
     }
   }

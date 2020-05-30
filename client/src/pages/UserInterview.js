@@ -19,8 +19,6 @@ const UserInterview = ({user, loading, errors}) => {
     return () => {didCancel = true;}
   }, [user]);
 
-  console.log(interviews);
-
   return (
     <div className="page">
       <Navbar userData={user} />

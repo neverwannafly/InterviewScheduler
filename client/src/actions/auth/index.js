@@ -4,6 +4,8 @@ import history from "../../history";
 import { attemptRegister, registerSuccess } from "./register";
 import { logoutSuccess, logoutFailure } from "./logout";
 import attachHeaders from "../../utils/attachHeaders";
+import { issueNotice } from "../notice/notice";
+import { RED_NOTICE, BLUE_NOTICE } from "../../types/notice";
 
 export const loginUser = (body) => {
   return dispatch => {
@@ -20,12 +22,15 @@ export const loginUser = (body) => {
       ).then(data => {
         if (data.success) {
           dispatch(loginSuccess(data.user));
+          dispatch(`Welcome back ${data.user.username}`, BLUE_NOTICE);
           history.push('/interviews');
         } else {
+          dispatch(issueNotice(data.error, RED_NOTICE));
           dispatch(loginFailure(data.error));
         }
       });
     } catch {
+      dispatch(issueNotice(NETWORK_ERROR, RED_NOTICE));
       dispatch(loginFailure(NETWORK_ERROR));
     }
   }
@@ -46,12 +51,14 @@ export const registerUser = (body) => {
       ).then(data => {
         if (data.success) {
           dispatch(registerSuccess(data.user));
+          dispatch(`Hello ${data.user.username}!`, BLUE_NOTICE);
           history.push('/interviews');
         } else {
+          dispatch(issueNotice(data.error, RED_NOTICE));
           dispatch(loginFailure(data.error));
         }
       });
-    } catch {
+    } catch {dispatch(issueNotice(NETWORK_ERROR, RED_NOTICE));
       dispatch(loginFailure(NETWORK_ERROR));
     }
   }
