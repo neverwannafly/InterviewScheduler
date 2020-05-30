@@ -7,7 +7,7 @@ import formatMembers from '../utils/formatMembers';
 import { connect } from 'react-redux';
 import { updateInterview } from '../actions/interview';
 
-const EditInterview = ({user, loading, errors}) => {
+const EditInterview = ({user, loading, errors, rescheduleInterview}) => {
   const location = useLocation();
   const interviewid = location.state.interview.id;
 
@@ -32,7 +32,7 @@ const EditInterview = ({user, loading, errors}) => {
     const payload = { interview: {
       members: formatMembers(members), title, agenda, start, end, comments }
     };
-    updateInterview(payload, user, interviewid);
+    rescheduleInterview(payload, user, interviewid);
   }
   return (
     <div className="page">
@@ -65,4 +65,10 @@ const mapStateToProps = state => ({
   errors: state.auth.errors,
 });
 
-export default connect(mapStateToProps)(EditInterview);
+const mapDispatchToProps = dispatch => ({
+  rescheduleInterview: (payload, user, interviewid) => {
+    dispatch(updateInterview(payload, user, interviewid));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditInterview);

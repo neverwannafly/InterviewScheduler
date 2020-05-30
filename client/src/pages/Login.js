@@ -4,6 +4,7 @@ import LoginForm from '../components/LoginForm';
 import Header from '../components/Header';
 import { connect } from 'react-redux'
 import { loginUser } from '../actions/auth';
+import Notice from '../components/Notice';
 
 const Login = ({authenticateUser, loading, user, errors}) => {
 
@@ -22,7 +23,7 @@ const Login = ({authenticateUser, loading, user, errors}) => {
     <div className="wrapper">
       <div className="wrapper">
         <Header name={"Interview Scheduler"} />
-        <div id="notice-root"></div>
+        <Notice />
       </div>
       <div className="container form-wrapper">
         <LoginForm 

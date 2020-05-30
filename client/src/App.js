@@ -15,11 +15,11 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path='/' component={Interviews} />
+        <Route exact path='/' component={Landing} />
+        <Route exact path='/interviews' component={Interviews} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/create' component={CreateInterview} />
-        <Route exact path='/landing' component={Landing} />
         <Route exact path='/user/:id' component={UserProfile} />
         <Route exact path='/interviews/:id' component={UserInterview} />
         <Route exact path='/interview/:id/edit' component={EditInterview} />

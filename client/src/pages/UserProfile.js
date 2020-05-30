@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import ResumeUpload from '../components/ResumeUpload';
 import Profile from '../components/Profile';
 import { retrieveProfile, uploadUserResume } from '../actions/profile';
+import Notice from '../components/Notice';
 
 const UserProfile = ({loading, user, success, profile, errors, retrieveProfileData, uploadResume}) => {
   let [file, setFile] = useState(null);
@@ -25,6 +26,7 @@ const UserProfile = ({loading, user, success, profile, errors, retrieveProfileDa
         userData={user}
       />
       <div className="container">
+        <Notice />
         <Profile success={success} profile={profile} />
         <div className="center">
           <ResumeUpload 

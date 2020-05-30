@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { registerUser } from '../actions/auth';
 import { connect } from 'react-redux'
 import { ROLE_ID, ROLE_TOKEN } from '../config';
+import Notice from '../components/Notice';
 
 const Register = ({authenticateUser}) => {
 
@@ -32,6 +33,7 @@ const Register = ({authenticateUser}) => {
         <div id="notice-root"></div>
       </div>
       <Header name={"Interview Scheduler"} />
+      <Notice />
       <div className="container form-wrapper">
         <RegisterForm 
           handleNameChange={handleNameChange}
